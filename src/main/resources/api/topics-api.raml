@@ -1,0 +1,69 @@
+#%RAML 1.0
+title: Topics API
+description: Manage different learning topics through this api
+version: 1.0
+protocols:
+  - HTTP
+  - HTTPS
+mediaType: 
+  - application/json
+types:
+  Topic: !include types/topic-dataType.raml
+/topics:
+  get:
+    description: Retrieve all topics
+    displayName: GET /topics
+    responses:
+      200:
+        body:
+          application/json:
+            type: Topic[]
+            examples: !include examples/topics-example.raml
+  post:
+    description: Create new topic
+    displayName: POST /topics
+    body:
+      application/json:
+        type: Topic
+        examples: !include examples/topic-example.raml
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            example:
+              message: New topic has been added
+  /{id}:
+    get:
+      description: Retrieve one topic by unique ID
+      displayName: GET /topics/{id}
+      responses:
+        200:
+          body:
+            application/json:
+              type: Topic
+              examples: !include examples/topic-example.raml
+    patch:
+      description: Modify a topic based on unique ID
+      displayName: PATCH /topic/{id}
+      body:
+        application/json:
+          type: Topic
+          examples: !include examples/topic-example.raml
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              example:
+                message: Topic details have been updated
+    delete:
+      description: Remove a topic based on unique ID
+      displayName: DELETE /topics/{id}
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              example:
+                message: Topic details have been deleted
