@@ -10,5 +10,13 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:listener-config name="topics-api-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="topics-api-config" api="topics-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="topics-api-config" api="topics-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" >
+		<apikit:flow-mappings >
+			<apikit:flow-mapping resource="/topics" action="get" content-type="application/json" flow-ref="getAllTopicsFlow" />
+			<apikit:flow-mapping resource="/topics" action="post" content-type="application/json" flow-ref="addTopicFlow" />
+			<apikit:flow-mapping resource="/topics/{id}" action="get" content-type="application/json" flow-ref="getTopicFlow" />
+			<apikit:flow-mapping resource="/topics/{id}" action="patch" content-type="application/json" flow-ref="updateTopicFlow" />
+			<apikit:flow-mapping resource="/topics/{id}" action="delete" content-type="application/json" flow-ref="deleteTopicFlow" />
+		</apikit:flow-mappings>
+	</apikit:config>
 </mule>
